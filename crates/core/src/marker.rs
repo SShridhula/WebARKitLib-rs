@@ -1010,7 +1010,7 @@ mod tests {
         assert_eq!(marker2_num, 0);
     }
 
-   /// AC: ar_detect_marker returns Err when buff_luma is missing.
+    /// AC: ar_detect_marker returns Err when buff_luma is missing.
     #[test]
     fn test_ar_detect_marker_missing_luma_returns_err() {
         let mut handle = crate::types::ARHandle::default();
@@ -1088,10 +1088,14 @@ mod tests {
         let result = ar_detect_marker(&mut handle, &frame);
 
         // Cleanup
-        unsafe { drop(Box::from_raw(param_lt_ptr)); }
+        unsafe {
+            drop(Box::from_raw(param_lt_ptr));
+        }
 
         assert!(result.is_ok());
-        assert_eq!(handle.marker_num, 0, "blank frame should produce zero markers");
+        assert_eq!(
+            handle.marker_num, 0,
+            "blank frame should produce zero markers"
+        );
     }
 }
-
